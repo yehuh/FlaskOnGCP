@@ -16,13 +16,24 @@ def hello_world(request):
         `make_response <http://flask.pocoo.org/docs/1.0/api/#flask.Flask.make_response>`.
     """
     real_work_day = GetWorkedDay.GetWorkedDay(5)
-    
-    #request_json = request.get_json()
-    #if request.args and 'message' in request.args:
-    #    return request.args.get('message')
-    #elif request_json and 'message' in request_json:
-    #    return request_json['message']
-    #else:
-    return str(real_work_day[0])
 
-print(hello_world("Haha"))
+    request_json = request.get_json()
+    if request.args and 'message' in request.args:
+        return request.args.get('message')
+    elif request_json and 'message' in request_json:
+        return request_json['message']
+    else:
+        return str(real_work_day[0])
+
+from flask import Flask
+from flask import render_template
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+        return render_template("home.html")
+
+app.run()
+
+
