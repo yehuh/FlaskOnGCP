@@ -34,6 +34,16 @@ app = Flask(__name__)
 def home():
         return render_template("home.html")
 
+@app.route('/data/appInfo/<name>', methods=['GET'])
+def queryDataMessageByName(name):
+    print("type(name) : ", type(name))
+    return 'String => {}'.format(name)
+
+@app.route('/data/appInfo/id/<int:id>', methods=['GET'])
+def queryDataMessageById(id):
+    print("type(id) : ", type(id))
+    return 'int => {}'.format(id)
+
 app.run()
 
 
