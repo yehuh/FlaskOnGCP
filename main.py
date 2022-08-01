@@ -30,10 +30,6 @@ from flask import render_template
 
 app = Flask(__name__)
 
-@app.route("/")
-def home():
-        return render_template("home.html")
-
 @app.route('/data/appInfo/<name>', methods=['GET'])
 def queryDataMessageByName(name):
     print("type(name) : ", type(name))
@@ -43,6 +39,45 @@ def queryDataMessageByName(name):
 def queryDataMessageById(id):
     print("type(id) : ", type(id))
     return 'int => {}'.format(id)
+
+@app.route('/data/appInfo/version/<float:version>', methods=['GET'])
+def queryDataMessageByVersion(version):
+    print("type(version) : ", type(version))
+    return 'float => {}'.format(version)
+
+@app.route("/home")
+def home():
+    return render_template("home.html")
+
+@app.route("/page/text")
+def pageText():
+    return render_template("page.html", text="Python Flask !")
+
+@app.route('/page/app')
+def pageAppInfo():
+    appInfo = {  # dict
+        'id': 5,
+        'name': 'Python - Flask',
+        'version': '1.0.1',
+        'author': 'yehuh',
+        'remark': 'Python - Web Framework'
+    }
+    return render_template('page.html', appInfo=appInfo)
+
+@app.route('/page/data')
+def pageData():
+    data = {  # dict
+        '01': 'Text Text Text',
+        '02': 'Text Text Text',
+        '03': 'Text Text Text',
+        '04': 'Text Text Text',
+        '05': 'Text Text Text'
+    }
+    return render_template('page.html', data=data)
+
+@app.route('/static')
+def staticPage():
+    return render_template('static.html')
 
 app.run()
 
