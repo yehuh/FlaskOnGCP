@@ -48,12 +48,14 @@ def GetDF_FromGCP(dispLog=False):
                              FROM stock.OverDealCount
                              LIMIT 1000 """)
 
-    results = query_job.to_dataframe()
+    funcResults = query_job.to_dataframe()
     if (dispLog == True):
         #print(f'已存入{table.num_rows}筆資料到{table_id}')
         #print("Table schema: {}".format(table.schema))
         #print("Table description: {}".format(table.description))
-        print(results)
+        print(funcResults)
+    
+    return funcResults
 
 
 '''module test'''
@@ -81,6 +83,7 @@ deal_amount.append(300.87)
 
 #DfToGoogleCloud(df, True)
 
-GetFromGCP(True)
+df = GetDF_FromGCP()
+print(df)
 
 '''module test'''

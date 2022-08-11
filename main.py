@@ -45,9 +45,19 @@ def queryDataMessageByVersion(version):
     print("type(version) : ", type(version))
     return 'float => {}'.format(version)
 
+import ToGoogleCloud
+
 @app.route("/home")
 def home():
-    return render_template("home.html")
+    df = ToGoogleCloud.GetDF_FromGCP()
+    print(df)
+    df.drop(columns=["DATE"])
+    html = df.to_html()
+    text_file = open("C:/Users/yehuh/FlaskOnGCP/templates/index.html", "w")
+    text_file.write(html)
+    text_file.close()
+    return render_template("index.html")
+    #return render_template("home.html")
 
 @app.route("/page/text")
 def pageText():
