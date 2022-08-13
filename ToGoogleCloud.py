@@ -58,9 +58,10 @@ def GetDF_FromGCP(dispLog=False):
     return funcResults
 
 
-'''module test'''
+'''module test
 
 import pandas as pd
+from datetime import date
 
 deal_cnt =[]
 stock_no =[]
@@ -84,6 +85,7 @@ deal_amount.append(300.87)
 #DfToGoogleCloud(df, True)
 
 df = GetDF_FromGCP()
-print(df)
+df_0812 = df[df.DATE == date(2022, 8, 12)]
+print(df_0812)
 
-'''module test'''
+module test'''

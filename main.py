@@ -46,17 +46,21 @@ def queryDataMessageByVersion(version):
     return 'float => {}'.format(version)
 
 import ToGoogleCloud
-
+from datetime import date
 @app.route("/home")
 def home():
     df = ToGoogleCloud.GetDF_FromGCP()
-    print(df)
-    df.drop(columns=["DATE"])
-    html = df.to_html()
-    text_file = open("C:/Users/yehuh/FlaskOnGCP/templates/index.html", "w")
-    text_file.write(html)
-    text_file.close()
-    return render_template("index.html")
+    work_days = GetWorkedDay.GetWorkedDay(10)
+    work_day = work_days[0].date()
+    df_today = df[df.DATE == work_day]
+    df_over = df_today[df_today.DEAL_AMOUNT > 1000000000]
+    html = df_over.to_html()
+    #text_file = open("C:/Users/yehuh/FlaskOnGCP/templates/index.html", "w")
+    #text_file.write(html)
+    #text_file.close()
+    
+    return html
+    #return render_template("index.html")
     #return render_template("home.html")
 
 @app.route("/page/text")
